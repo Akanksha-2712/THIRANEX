@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View my portfolio of web development projects, including e-commerce platforms, web apps, and interactive sites.">
+    <title>Projects | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header class="site-header" role="banner">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" aria-label="Home">DevPortfolio.</a>
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="projects.html" aria-current="page">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" role="main" class="container">
+        <section aria-labelledby="projects-heading">
+            <header>
+                <h1 id="projects-heading">Selected Projects</h1>
+                <p>A collection of my recent work focusing on modern design and accessibility.</p>
+            </header>
+
+            <div class="grid">
+                <article class="card" aria-labelledby="project1-title">
+                    <h3 id="project1-title">E-Commerce Dashboard</h3>
+                    <p>A fully responsive admin dashboard built with React and Tailwind CSS. Features dark mode and complex data visualizations.</p>
+                    <a href="#" class="btn btn-secondary" aria-label="View E-Commerce Dashboard project details">View Project</a>
+                </article>
+                
+                <article class="card" aria-labelledby="project2-title">
+                    <h3 id="project2-title">Health App Landing Page</h3>
+                    <p>High-conversion landing page optimized for SEO and performance, achieving 100/100 Lighthouse scores.</p>
+                    <a href="#" class="btn btn-secondary" aria-label="View Health App project details">View Project</a>
+                </article>
+
+                <article class="card" aria-labelledby="project3-title">
+                    <h3 id="project3-title">Task Management API</h3>
+                    <p>RESTful API built with Node.js and Express, featuring robust authentication and comprehensive documentation.</p>
+                    <a href="#" class="btn btn-secondary" aria-label="View Task Management API project details">View Project</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container footer-content">
+            <nav class="social-links" aria-label="Social Media Links">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">GitHub</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">LinkedIn</a>
+            </nav>
+            <p>&copy; 2026 DevPortfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="theme-toggle-container">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+            🌓
+        </button>
+    </div>
+    <script>
+        const toggleBtn = document.getElementById('themeToggle');
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+        });
+    </script>
+</body>
+</html>
