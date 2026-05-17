@@ -29,12 +29,39 @@ const DEFAULT_TASKS = [
 ];
 
 let state = {
-  tasks: JSON.parse(localStorage.getItem("zenlist_tasks")) || DEFAULT_TASKS,
-  filter: "all", // "all", "active", "completed"
-  selectedCategory: "work", // default for new task
+  tasks: [],
+  filter: "all",
+  selectedCategory: "work",
   searchQuery: "",
-  theme: localStorage.getItem("zenlist_theme") || "dark"
+  theme: "dark"
 };
+
+// Safe LocalStorage Retrieval with Try-Catch Block
+try {
+  const savedTasks = localStorage.getItem("zenlist_tasks");
+  if (savedTasks) {
+    state.tasks = JSON.parse(savedTasks);
+    // Ensure state.tasks is actually an array
+    if (!Array.isArray(state.tasks)) {
+      state.tasks = DEFAULT_TASKS;
+    }
+  } else {
+    state.tasks = DEFAULT_TASKS;
+  }
+} catch (e) {
+  console.warn("Corrupted tasks found in localStorage, resetting to default tasks:", e);
+  state.tasks = DEFAULT_TASKS;
+  try {
+    localStorage.removeItem("zenlist_tasks"); // Clear corrupted state
+  } catch (err) {}
+}
+
+try {
+  const savedTheme = localStorage.getItem("zenlist_theme");
+  state.theme = savedTheme || "dark";
+} catch (e) {
+  state.theme = "dark";
+}
 
 // ==========================================
 // 2. DOM ELEMENT SELECTORS
@@ -58,10 +85,14 @@ const clearCompletedBtn = document.getElementById("clearCompletedBtn");
 // 3. CORE UTILITIES & PERSISTENCE
 // ==========================================
 
-// Save current state changes to LocalStorage
+// Save current state changes to LocalStorage with safety checks
 function saveState() {
-  localStorage.setItem("zenlist_tasks", JSON.stringify(state.tasks));
-  localStorage.setItem("zenlist_theme", state.theme);
+  try {
+    localStorage.setItem("zenlist_tasks", JSON.stringify(state.tasks));
+    localStorage.setItem("zenlist_theme", state.theme);
+  } catch (e) {
+    console.error("Failed to save state to localStorage:", e);
+  }
 }
 
 // Generate dynamic greeting based on active time of day
@@ -495,6 +526,10 @@ tasksContainer.addEventListener("dblclick", (e) => {
 // ==========================================
 
 function initApp() {
+  // Prevent duplicate initialization
+  if (window.zenlistInitialized) return;
+  window.zenlistInitialized = true;
+
   updateGreeting();
   updateDateWidget();
   initTheme();
@@ -507,7 +542,7 @@ function initApp() {
   }, 60000);
 }
 
-// Launch ZenList
+// Launch ZenList safely
 document.addEventListener("DOMContentLoaded", initApp);
 // If page was loaded already, trigger instantly
 if (document.readyState === "interactive" || document.readyState === "complete") {
