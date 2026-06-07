@@ -1,0 +1,15 @@
+# Render Blueprint Spec for AuraCommerce (Task 5)
+# This file allows one-click deploys to Render (https://render.com)
+services:
+  - type: web
+    name: auracommerce-capstone
+    env: python
+    region: oregon # Default fast region
+    plan: free # Deploys on Render's free tier
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11 # Specifying a stable Python release
+      - key: FLASK_ENV
+        value: production
