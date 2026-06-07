@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Real-time Weather Dashboard — search any city and view live temperature, humidity, wind speed and a 7-day forecast.">
+    <title>Weather Dashboard | Real-Time Forecast</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-wrapper">
+
+        <!-- Header -->
+        <header class="app-header">
+            <h1>⛅ Weather Dashboard</h1>
+            <p>Search any city for real-time weather data &amp; 7-day forecast</p>
+        </header>
+
+        <!-- Search -->
+        <section class="search-section" aria-label="City Search">
+            <form class="search-form" id="searchForm" role="search">
+                <label for="cityInput" class="sr-only">City name</label>
+                <input
+                    type="text"
+                    id="cityInput"
+                    class="search-input"
+                    placeholder="Enter city name — e.g. London, Tokyo, New York"
+                    autocomplete="off"
+                    required
+                >
+                <button type="submit" class="search-btn" id="searchBtn">Search</button>
+            </form>
+        </section>
+
+        <!-- Status / Error messages -->
+        <div id="statusMessage" class="status-message hidden" role="alert" aria-live="polite"></div>
+
+        <!-- Welcome state (shown before first search) -->
+        <div id="welcomeState" class="welcome-state">
+            <div class="welcome-icon">🌍</div>
+            <h2>Welcome</h2>
+            <p>Enter a city name above to get started with live weather data.</p>
+        </div>
+
+        <!-- Dashboard (hidden until data loads) -->
+        <section class="dashboard" id="dashboard" aria-label="Weather Results">
+
+            <!-- Current Weather Hero -->
+            <div class="current-weather" id="currentWeather">
+                <div class="current-left">
+                    <h2 id="cityName">—</h2>
+                    <p class="date-time" id="dateTime">—</p>
+                    <p class="weather-desc" id="weatherDesc">—</p>
+                </div>
+                <div class="current-right">
+                    <span class="weather-icon" id="weatherIcon" aria-hidden="true"></span>
+                    <span class="current-temp" id="currentTemp">—</span>
+                </div>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="metrics-grid" id="metricsGrid">
+                <div class="metric-card">
+                    <span class="metric-icon" aria-hidden="true">🌡️</span>
+                    <span class="metric-label">Feels Like</span>
+                    <span class="metric-value" id="feelsLike">—</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon" aria-hidden="true">💧</span>
+                    <span class="metric-label">Humidity</span>
+                    <span class="metric-value" id="humidity">—</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon" aria-hidden="true">💨</span>
+                    <span class="metric-label">Wind Speed</span>
+                    <span class="metric-value" id="windSpeed">—</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon" aria-hidden="true">🧭</span>
+                    <span class="metric-label">Wind Direction</span>
+                    <span class="metric-value" id="windDir">—</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon" aria-hidden="true">☀️</span>
+                    <span class="metric-label">UV Index</span>
+                    <span class="metric-value" id="uvIndex">—</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon" aria-hidden="true">🌧️</span>
+                    <span class="metric-label">Precipitation</span>
+                    <span class="metric-value" id="precipitation">—</span>
+                </div>
+            </div>
+
+            <!-- 7-Day Forecast -->
+            <div class="forecast-section">
+                <h3>7-Day Forecast</h3>
+                <div class="forecast-grid" id="forecastGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
